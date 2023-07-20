@@ -28,13 +28,13 @@ type Response struct {
 	StatusCode    int    `json:"StatusCode"`
 }
 
-func (f Lark) Message(s any) error {
+func (f Lark) Send(msg any) error {
 	if f.Retry == 0 {
 		f.Retry = 1
 	}
 	var err error
 	for i := 0; i < f.Retry; i++ {
-		if err = f.run(s); err == nil {
+		if err = f.run(msg); err == nil {
 			return err
 		}
 		time.Sleep(time.Second)
